@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Autosuggest</title>
+		<link rel="stylesheet" type="text/css" href="../addon.css" />
+		<link rel="stylesheet" type="text/css" href="../jquery.autoSuggest.css" />
+		<script type="text/javascript" src="../jquery.js"></script>
+		<script type="text/javascript" src="../jquery.autoSuggest.js"></script>
+	</head>
+	<body>
+		<div id='pageheader'>
+			<h1>Autosuggest Demo</h1>
+			<div id='content'>
+			<div class='field'>
+				<label for='favorite_movies' class='label'>Tell us your favorite movies:</label>
+				<input type='text' id='tags'>
+			</div>
+		 </div>
+		</div>
+	</body>
+</html>
+<script type='text/javascript'>
+
+	$(document).ready(function(){
+			var data = {items: [
+				{value: "21", name: "Mick Jagger"},
+				{value: "43", name: "Johnny Storm"},
+				{value: "46", name: "Richard Hatch"},
+				{value: "54", name: "Kelly Slater"},
+				{value: "55", name: "Rudy Hamilton"},
+				{value: "79", name: "Michael Jordan"}
+		]};
+		$("#tags").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies"});
+
+	});
+</script>

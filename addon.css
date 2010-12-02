@@ -1,0 +1,35 @@
+body{
+font-family:Verdana,sans-serif;
+}
+div#pageheader{
+	width:970px;
+	height: 90px;
+	background-image:url(./images/background-yellow.png)
+}
+
+h1{
+	padding: 20px;
+	margin-left: 30px;
+	font-size: 30px;
+	line-height:54px;
+}
+
+.label{
+	color:#666666;
+	font-weight:bold;
+	padding-right:10px;
+	text-align:right;
+	width:350px;
+	font-size: 11px;
+	float:left;
+}
+.field{
+
+margin:5px 10px;
+overflow:hidden;
+}
+
+#content{
+background-color: #F2F2F2;
+
+}
