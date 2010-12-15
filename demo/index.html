@@ -24,14 +24,15 @@
 
 	$(document).ready(function(){
 			var data = {items: [
-				{value: "21", name: "Mick Jagger"},
-				{value: "43", name: "Johnny Storm"},
-				{value: "46", name: "Richard Hatch"},
-				{value: "54", name: "Kelly Slater"},
-				{value: "55", name: "Rudy Hamilton"},
-				{value: "79", name: "Michael Jordan"}
+				{value: "21", name: "Hanumaan",  image: "<img src = '../images/hanumaan.jpeg' height='42' width='42'>"},
+				{value: "43", name: "IceCube",   image: "<img src = '../images/icecube.jpg' height='42' width='42'>"},
+				{value: "46", name: "Broke Back Moutain", image: "<img src = '../images/brokeback.jpeg' height='42' width='42'>" },
+				{value: "54", name: "SpiderMan", image: "<img src = '../images/spiderman.jpg' height='42' width='42'>"},
+				{value: "55", name: "Twilight", image: "<img src='../images/twilight.jpeg' height='42' width='42'>"},
+				{value: "79", name: "Logo", image: "<img src='../images/linux-logo.png' height='42' width='42'>"}
 		]};
-		$("#tags").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies"});
+		$("#tags").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies", formatList: function(data, elem){ var image = data.image;var name = data.name;var new_elem = elem.html(image + "<span class='movie_name'>" + name + "</span>");return new_elem;}});
 
 	});
 </script>
+

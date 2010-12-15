@@ -294,12 +294,14 @@
                         var forward = false;
                         if(opts.searchObjProps == "value") {
                             var str = data[num].value;
+
                         } else {
                             var str = "";
                             var names = opts.searchObjProps.split(",");
                             for(var y=0;y<names.length;y++){
                                 var name = $.trim(names[y]);
                                 str = str+data[num][name]+" ";
+
                             }
                         }
                         if(str){
