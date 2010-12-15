@@ -333,7 +333,8 @@
                             }
 
                             if(opts.resultsHighlight && query.length > 0){
-                                this_data[opts.selectedItemProp] = this_data[opts.selectedItemProp].replace(regx,"<em>$1</em>");
+                                //this_data[opts.selectedItemProp] = this_data[opts.selectedItemProp].replace(regx,"<em>$1</em>");
+                                this_data[opts.selectedItemProp] = this_data[opts.selectedItemProp].replace(regx,"$1");
                             }
                             if(!opts.formatList){
                                 formatted = formatted.html(this_data[opts.selectedItemProp]);
@@ -351,7 +352,8 @@
                         results_ul.html('<li class="as-message">'+opts.emptyText+'</li>');
                     }
                     results_ul.css("width", selections_holder.outerWidth());
-                    if (matchCount > 0 || !showResultListWhenNoMatch) {
+                    //if (matchCount > 0 || !showResultListWhenNoMatch)
+                    if (matchCount > 0) {
                         results_holder.show();
                     }
                     opts.resultsComplete.call(this);
@@ -407,3 +409,4 @@
         }
     };
 })(jQuery);
+
