@@ -63,13 +63,15 @@
                                     prev_ele_image.css('display', 'block');
                                     $(".image_movies").html(prev_ele_image);
                                  }
-                                elem.remove();
+                                 else{
+                                     $(".image_movies").html('');
+                                 }
+
                                 var ele_name = elem.find('span').html();
                                 var ele_id = ele_name.replace(/ /gi, "_");
-                                $("#image_"+ele_id).remove();
-                                $("#saved_image_"+ele_id).remove();
-
-                                },
+                             //   $("#image_"+ele_id).remove();
+                                elem.remove();
+               },
             formatList: false, //callback function
             beforeRetrieve: function(string){ return string; },
             retrieveComplete: function(data){ return data; },
@@ -78,8 +80,12 @@
 
                 $(".image_movies").html(data.attributes.image);
                 $(".image_movies").find('img').attr('id', "image_"+new_id).attr({width: '62', height: '62'});
-                $("ul.as-selections").append(data.attributes.image ); //This is the last image
+
+                if(!$("#saved_image_"+new_id).length){
+                $("ul.as-selections").append(data.attributes.image );                 //This is the last image
                 $("ul.as-selections img:last").css('display', 'none').attr('id', "saved_image_"+new_id).attr({width: '62', height: '62'});
+    }
+
             },
             resultsComplete: function(){}
         };
