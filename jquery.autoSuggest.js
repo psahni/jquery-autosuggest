@@ -47,11 +47,40 @@
             start: function(){},
             selectionClick: function(elem){},
             selectionAdded: function(elem){},
-            selectionRemoved: function(elem){ elem.remove(); },
+            selectionRemoved: function(elem){
+                                 if(elem.next().length && elem.next().hasClass('as-selection-item')){
+                                    var next_ele_name = elem.next().find('span').html();
+                                    var next_ele_id   = next_ele_name.replace(/ /gi, "_");
+                                    var next_ele_image = $("#saved_image_"+ next_ele_id);
+                                    next_ele_image.css('display', 'block');
+                                    $(".image_movies").html(next_ele_image);
+
+                                  }
+                                else if(elem.prev().length && elem.prev().hasClass('as-selection-item')){
+                                    var prev_ele_name = elem.prev().find('span').html();
+                                    var prev_ele_id   = prev_ele_name.replace(/ /gi, "_");
+                                    var prev_ele_image = $("#saved_image_"+ prev_ele_id);
+                                    prev_ele_image.css('display', 'block');
+                                    $(".image_movies").html(prev_ele_image);
+                                 }
+                                elem.remove();
+                                var ele_name = elem.find('span').html();
+                                var ele_id = ele_name.replace(/ /gi, "_");
+                                $("#image_"+ele_id).remove();
+                                $("#saved_image_"+ele_id).remove();
+
+                                },
             formatList: false, //callback function
             beforeRetrieve: function(string){ return string; },
             retrieveComplete: function(data){ return data; },
-            resultClick: function(data){},
+            resultClick: function(data){
+            var new_id = data.attributes.name.replace(/ /gi, "_");
+
+                $(".image_movies").html(data.attributes.image);
+                $(".image_movies").find('img').attr('id', "image_"+new_id).attr({width: '62', height: '62'});
+                $("ul.as-selections").append(data.attributes.image ); //This is the last image
+                $("ul.as-selections img:last").css('display', 'none').attr('id', "saved_image_"+new_id).attr({width: '62', height: '62'});
+            },
             resultsComplete: function(){}
         };
         var opts = $.extend(defaults, options);
@@ -375,7 +404,8 @@
                             input.focus();
                             return false;
                         });
-                    org_li.before(item.html(data[opts.selectedItemProp]).prepend(close));
+                    var ele_to_insert = "<span>" + data[opts.selectedItemProp] + "</span>";
+                    org_li.before(item.html(ele_to_insert).prepend(close));
                     opts.selectionAdded.call(this, org_li.prev());
                 }
 
