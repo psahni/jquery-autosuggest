@@ -81,11 +81,20 @@
                 $(".image_movies").html(data.attributes.image);
                 $(".image_movies").find('img').attr('id', "image_"+new_id).attr({width: '62', height: '62'});
 
-                if(!$("#saved_image_"+new_id).length){
-                $("ul.as-selections").append(data.attributes.image );                 //This is the last image
-                $("ul.as-selections img:last").css('display', 'none').attr('id', "saved_image_"+new_id).attr({width: '62', height: '62'});
-    }
+                    if(!$("#saved_image_"+new_id).length){
+                    $("ul.as-selections").append(data.attributes.image );                 //This is the last image
+                    $("ul.as-selections img:last").css('display', 'none').attr('id', "saved_image_"+new_id).attr({width: '62', height: '62'});
+                }//EndIf
 
+                $("#image_"+new_id).animate({
+
+                        width:  '100%',
+                        height: '100%',
+
+            }, 1000, function() {
+
+
+          });
             },
             resultsComplete: function(){}
         };
