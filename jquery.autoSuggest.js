@@ -45,26 +45,38 @@
             showResultList: true,
             showResultListWhenNoMatch: false,
             start: function(){},
-            selectionClick: function(elem){},
+            selectionClick: function(elem){ //console.log($(elem).find('span').html())
+                                                var ele_val = $(elem).find('span').html();
+                                                ele_val     = ele_val.replace(/ /gi, '_');
+                                                var ele_saved_image = $("#saved_image_" + ele_val);
+                                                ele_saved_image.css('display', 'inline');
+                                                $('.image_movies').html(ele_saved_image);
+                                            },
             selectionAdded: function(elem){},
             selectionRemoved: function(elem){
+                                //Finding current element image
+                                var ele_val = $(elem).find('span').html();
+                                ele_val     = ele_val.replace(/ /gi, '_');
+                                var parent  = elem.parent();
+                                //Remove the image
+                                $("#image_"+ele_val).remove();
+                                //show the next or prev element image
                                  if(elem.next().length && elem.next().hasClass('as-selection-item')){
-                                    var next_ele_name = elem.next().find('span').html();
-                                    var next_ele_id   = next_ele_name.replace(/ /gi, "_");
-                                    var next_ele_image = $("#saved_image_"+ next_ele_id);
-                                    next_ele_image.css('display', 'block');
-                                    $(".image_movies").html(next_ele_image);
-
-                                  }
+                                        var last_element  = parent.children('li.as-selection-item').last();
+                                        var last_ele_name = last_element.find('span').html();
+                                        var last_ele_id   = last_ele_name.replace(/ /gi, "_");
+                                        var last_ele_image = $("#image_"+ last_ele_id);
+                                        last_ele_image.css('display', 'block');
+                                    }
                                 else if(elem.prev().length && elem.prev().hasClass('as-selection-item')){
                                     var prev_ele_name = elem.prev().find('span').html();
                                     var prev_ele_id   = prev_ele_name.replace(/ /gi, "_");
-                                    var prev_ele_image = $("#saved_image_"+ prev_ele_id);
+                                    var prev_ele_image = $("#image_"+ prev_ele_id);
                                     prev_ele_image.css('display', 'block');
-                                    $(".image_movies").html(prev_ele_image);
+                                    //$("#image_movies").html(prev_ele_image);
                                  }
                                  else{
-                                     $(".image_movies").html('');
+                                     $("#image_movies").html('');
                                  }
 
                                 var ele_name = elem.find('span').html();
@@ -77,29 +89,22 @@
             retrieveComplete: function(data){ return data; },
             resultClick: function(data){
             var new_id = data.attributes.name.replace(/ /gi, "_");
+            var current_image = data.attributes.image;
+            $("#image_movies img:last").css('display', 'none');
+//_________________________________________________________________________________________________________________
 
-                $(".image_movies").html(data.attributes.image);
-                $(".image_movies").find('img').attr('id', "image_"+new_id).attr({width: '62', height: '62'});
-
-                    if(!$("#saved_image_"+new_id).length){
-                    $("ul.as-selections").append(data.attributes.image );                 //This is the last image
-                    $("ul.as-selections img:last").css('display', 'none').attr('id', "saved_image_"+new_id).attr({width: '62', height: '62'});
-                }//EndIf
-
+                $("#image_movies").append(data.attributes.image);
+                $("#image_movies").find('img:last').attr('id', "image_"+new_id).attr({width: '62', height: '62'})
+//_________________________________________________________________________________________________________________
                 $("#image_"+new_id).animate({
-
                         width:  '100%',
                         height: '100%',
-
-            }, 1000, function() {
-
-
-          });
-            },
-            resultsComplete: function(){}
-        };
+                    }, 1000, function() {
+                    });
+                },
+                resultsComplete: function(){}
+            };
         var opts = $.extend(defaults, options);
-
         var d_type = "object";
         var d_count = 0;
         if(typeof data == "string") {

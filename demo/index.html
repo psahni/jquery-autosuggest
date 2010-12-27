@@ -13,12 +13,11 @@
 			<h1>Autosuggest Demo</h1>
 			<div id='content'>
 			<div class='field'>
-			<div class = 'image_movies'>
-
-			</div>
-			<label for='favorite_movies' class='label'>Tell us your favorite movies:</label>
-			<input type='text' id='tags'>
-      </div>
+			  <div id = 'image_movies'>
+			  </div>
+			  <label for='favorite_movies' class='label'>Tell us your favorite movies:</label>
+			  <input type='text' id='tags'>
+      </div><!--End field -->
 		 </div><!--End content-->
 		</div>
 	</body>
@@ -28,7 +27,7 @@
 	$(document).ready(function(){
 			var data = {items: [
 				{value: "21", name: "Hanumaan",  image: "<img src = '../images/hanumaan.jpeg' height='42' width='42'>"},
-				{value: "43", name: "IceCube",   image: "<img src = '../images/icecube.jpg' height='42' width='42'>"},
+				{value: "43", name: "IceCube",   image: "<img src = '../images/icecube.jpg'   height='42' width='42'>"},
 				{value: "46", name: "Broke Back Moutain", image: "<img src = '../images/brokeback.jpeg' height='42' width='42'>" },
 				{value: "54", name: "SpiderMan", image: "<img src = '../images/spiderman.jpg' height='42' width='42'>"},
 				{value: "55", name: "Twilight", image: "<img src='../images/twilight.jpeg' height='42' width='42'>"},
