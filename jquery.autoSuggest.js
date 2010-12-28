@@ -46,16 +46,18 @@
             showResultListWhenNoMatch: false,
             start: function(){},
             selectionClick: function(elem){
-                                                //Finding the current visible image
+
+                                                //-Finding the current visible image
                                                 var visible_image = $('#image_movies').find('img:visible');
                                                 var ele_val = $(elem).find('span').html();
                                                 ele_val     = ele_val.replace(/ /gi, '_');
                                                 var ele_image_id = $("image_" + ele_val);
+
                                                 if(visible_image.attr('id') ==  ele_image_id){
                                                     return false;
                                                 }
                                                 else{
-                                                    //Hide the showed element
+                                                    //-Hide the showed element
                                                     visible_image.css('display', 'none');
                                                     //Show the clicked element
                                                     $("#image_" + ele_val).css('display', 'inline');
@@ -64,15 +66,15 @@
                                             },
             selectionAdded: function(elem){},
             selectionRemoved: function(elem){
-                                //Finding current element image
+                                //-Finding current element image
                                 var ele_val = $(elem).find('span').html();
                                 ele_val     = ele_val.replace(/ /gi, '_');
                                 var parent  = elem.parent();
-                                //Remove the image
+                                //Hide the currently displayed image and then Remove the image
                                 var visible_image = $('#image_movies').find('img:visible');
                                 visible_image.css('display', 'none');
                                 $("#image_"+ele_val).remove();
-                                //show the next or prev element image
+                                //-Show the next or prev element image
                                  if(elem.next().length && elem.next().hasClass('as-selection-item')){
                                         var last_element  = parent.children('li.as-selection-item').last();
                                         var last_ele_name = last_element.find('span').html();
@@ -85,7 +87,6 @@
                                     var prev_ele_id   = prev_ele_name.replace(/ /gi, "_");
                                     var prev_ele_image = $("#image_"+ prev_ele_id);
                                     prev_ele_image.css('display', 'block');
-                                    //$("#image_movies").html(prev_ele_image);
                                  }
                                  else{
                                      $("#image_movies").html('');
@@ -93,13 +94,16 @@
 
                                 var ele_name = elem.find('span').html();
                                 var ele_id = ele_name.replace(/ /gi, "_");
-                             //   $("#image_"+ele_id).remove();
                                 elem.remove();
                },
             formatList: false, //callback function
             beforeRetrieve: function(string){ return string; },
             retrieveComplete: function(data){ return data; },
             resultClick: function(data){
+             //-Create the image div if it is not there
+             if(!$("div#image_movies").length){
+                    $("<div id='image_movies'></div>").appendTo(document.body);
+             }
             var new_id = data.attributes.name.replace(/ /gi, "_");
             var current_image = data.attributes.image;
             var visible_image = $('#image_movies').find('img:visible');
@@ -110,14 +114,8 @@
                 $("#image_movies").append(data.attributes.image);
                 $("#image_movies").find('img:last').attr('id', "image_"+new_id).attr({width: '62', height: '62'})
 //_________________________________________________________________________________________________________________
-               /* $("#image_"+new_id).animate({
-                        width:  '100%',
-                        height: '100%',
-                    }, 1000, function() {
-                    });*/
                     $("#image_"+new_id).fadeOut('slow');
                     $("#image_"+new_id).fadeIn('slow');
-
                 },
                 resultsComplete: function(){}
             };
