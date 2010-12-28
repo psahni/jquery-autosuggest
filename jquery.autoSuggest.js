@@ -45,12 +45,22 @@
             showResultList: true,
             showResultListWhenNoMatch: false,
             start: function(){},
-            selectionClick: function(elem){ //console.log($(elem).find('span').html())
+            selectionClick: function(elem){
+                                                //Finding the current visible image
+                                                var visible_image = $('#image_movies').find('img:visible');
                                                 var ele_val = $(elem).find('span').html();
                                                 ele_val     = ele_val.replace(/ /gi, '_');
-                                                var ele_saved_image = $("#saved_image_" + ele_val);
-                                                ele_saved_image.css('display', 'inline');
-                                                $('.image_movies').html(ele_saved_image);
+                                                var ele_image_id = $("image_" + ele_val);
+                                                if(visible_image.attr('id') ==  ele_image_id){
+                                                    return false;
+                                                }
+                                                else{
+                                                    //Hide the showed element
+                                                    visible_image.css('display', 'none');
+                                                    //Show the clicked element
+                                                    $("#image_" + ele_val).css('display', 'inline');
+                                                }
+
                                             },
             selectionAdded: function(elem){},
             selectionRemoved: function(elem){
@@ -59,6 +69,8 @@
                                 ele_val     = ele_val.replace(/ /gi, '_');
                                 var parent  = elem.parent();
                                 //Remove the image
+                                var visible_image = $('#image_movies').find('img:visible');
+                                visible_image.css('display', 'none');
                                 $("#image_"+ele_val).remove();
                                 //show the next or prev element image
                                  if(elem.next().length && elem.next().hasClass('as-selection-item')){
@@ -90,17 +102,22 @@
             resultClick: function(data){
             var new_id = data.attributes.name.replace(/ /gi, "_");
             var current_image = data.attributes.image;
-            $("#image_movies img:last").css('display', 'none');
+            var visible_image = $('#image_movies').find('img:visible');
+            visible_image.css('display', 'none');
+            //$("#image_movies img:last").css('display', 'none');
 //_________________________________________________________________________________________________________________
 
                 $("#image_movies").append(data.attributes.image);
                 $("#image_movies").find('img:last').attr('id', "image_"+new_id).attr({width: '62', height: '62'})
 //_________________________________________________________________________________________________________________
-                $("#image_"+new_id).animate({
+               /* $("#image_"+new_id).animate({
                         width:  '100%',
                         height: '100%',
                     }, 1000, function() {
-                    });
+                    });*/
+                    $("#image_"+new_id).fadeOut('slow');
+                    $("#image_"+new_id).fadeIn('slow');
+
                 },
                 resultsComplete: function(){}
             };
