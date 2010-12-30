@@ -24,7 +24,9 @@
 
 (function($){
     $.fn.autoSuggest = function(data, options) {
+        var $input_field_id = $(this).attr('id');
         var defaults = {
+
             asHtmlID: false,
             startText: "Enter Name Here",
             emptyText: "No Results Found",
@@ -48,10 +50,10 @@
             selectionClick: function(elem){
 
                                                 //-Finding the current visible image
-                                                var visible_image = $('#image_movies').find('img:visible');
+                                                var visible_image = $("#image_" + $input_field_id).find('img:visible');
                                                 var ele_val = $(elem).find('span').html();
                                                 ele_val     = ele_val.replace(/ /gi, '_');
-                                                var ele_image_id = $("image_" + ele_val);
+                                                var ele_image_id = "image_" + ele_val
 
                                                 if(visible_image.attr('id') ==  ele_image_id){
                                                     return false;
@@ -71,7 +73,7 @@
                                 ele_val     = ele_val.replace(/ /gi, '_');
                                 var parent  = elem.parent();
                                 //Hide the currently displayed image and then Remove the image
-                                var visible_image = $('#image_movies').find('img:visible');
+                                var visible_image = $("#image_" + $input_field_id).find('img:visible');
                                 visible_image.css('display', 'none');
                                 $("#image_"+ele_val).remove();
                                 //-Show the next or prev element image
@@ -89,7 +91,7 @@
                                     prev_ele_image.css('display', 'block');
                                  }
                                  else{
-                                     $("#image_movies").html('');
+                                     $("#image_" + $input_field_id).html('');
                                  }
 
                                 var ele_name = elem.find('span').html();
@@ -101,19 +103,23 @@
             retrieveComplete: function(data){ return data; },
             resultClick: function(data){
              //-Create the image div if it is not there
-             if(!$("div#image_movies").length){
-                    $("<div id='image_movies'></div>").appendTo(document.body);
+
+             if(!$("div#image_" + $input_field_id).length){
+                    var new_id = "image_" + $input_field_id;
+                    $("<div></div>").attr('id', new_id).appendTo(document.body);
              }
-            var new_id = data.attributes.name.replace(/ /gi, "_");
-            var current_image = data.attributes.image;
-            var visible_image = $('#image_movies').find('img:visible');
-            visible_image.css('display', 'none');
-            //$("#image_movies img:last").css('display', 'none');
+                var new_id = data.attributes.name.replace(/ /gi, "_");
+                var current_image = data.attributes.image;
+                var visible_image = $("#image_" + $input_field_id).find('img:visible');
+                visible_image.css('display', 'none');
+
+//$("#image_movies img:last").css('display', 'none');
 //_________________________________________________________________________________________________________________
 
-                $("#image_movies").append(data.attributes.image);
-                $("#image_movies").find('img:last').attr('id', "image_"+new_id).attr({width: '62', height: '62'})
+                $("#image_" + $input_field_id).append(data.attributes.image);
+                $("#image_" + $input_field_id).find('img:last').attr('id', "image_"+new_id).attr({width: '62', height: '62'})
 //_________________________________________________________________________________________________________________
+
                     $("#image_"+new_id).fadeOut('slow');
                     $("#image_"+new_id).fadeIn('slow');
                 },

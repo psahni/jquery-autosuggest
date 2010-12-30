@@ -14,7 +14,7 @@
 			<div id='content'>
 			<div class='field'>
 			  <label for='favorite_movies' class='label'>Tell us your favorite movies:</label>
-			  <input type='text' id='tags'>
+			  <input type='text' id='movies'>
       </div><!--End field -->
 		 </div><!--End content-->
 		</div>
@@ -31,7 +31,7 @@
 				{value: "55", name: "Twilight", image: "<img src='../images/twilight.jpeg' height='42' width='42'>"},
 				{value: "79", name: "Logo", image: "<img src='../images/linux-logo.png' height='42' width='42'>"}
 		]};
-		$("#tags").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies", formatList: function(data, elem){ var image = data.image;var name = data.name;var new_elem = elem.html(image + "<span class='movie_name'>" + name + "</span>");return new_elem;}});
+		$("#movies").autoSuggest(data.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies", formatList: function(data, elem){ var image = data.image;var name = data.name;var new_elem = elem.html(image + "<span class='movie_name'>" + name + "</span>");return new_elem;}});
 
 	});
 </script>
