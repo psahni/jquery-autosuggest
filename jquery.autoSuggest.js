@@ -103,10 +103,10 @@
             retrieveComplete: function(data){ return data; },
             resultClick: function(data){
              //-Create the image div if it is not there
-
+                //console.log($(this).parents('div.field'));
              if(!$("div#image_" + $input_field_id).length){
                     var new_id = "image_" + $input_field_id;
-                    $("<div></div>").attr('id', new_id).appendTo(document.body);
+                    $("<div></div>").attr('id', new_id).prependTo($(this).parents('div.field')).addClass('tagspics');
              }
                 var new_id = data.attributes.name.replace(/ /gi, "_");
                 var current_image = data.attributes.image;
