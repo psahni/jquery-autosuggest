@@ -46,6 +46,9 @@
             selectionLimit: false,
             showResultList: true,
             showResultListWhenNoMatch: false,
+            tab_press: false,
+            enter_press: false,
+            comma_press: false,
             start: function(){},
             selectionClick: function(elem){
 
@@ -93,17 +96,15 @@
                                  else{
                                      $("#image_" + $input_field_id).html('');
                                  }
-
                                 var ele_name = elem.find('span').html();
                                 var ele_id = ele_name.replace(/ /gi, "_");
                                 elem.remove();
                },
             formatList: false, //callback function
             beforeRetrieve: function(string){ return string; },
-            retrieveComplete: function(data){ return data; },
+            retrieveComplete: function(data){ ;return data; },
             resultClick: function(data){
              //-Create the image div if it is not there
-                //console.log($(this).parents('div.field'));
              if(!$("div#image_" + $input_field_id).length){
                     var new_id = "image_" + $input_field_id;
                     $("<div></div>").attr('id', new_id).prependTo($(this).parents('div.field')).addClass('tagspics');
@@ -112,8 +113,6 @@
                 var current_image = data.attributes.image;
                 var visible_image = $("#image_" + $input_field_id).find('img:visible');
                 visible_image.css('display', 'none');
-
-//$("#image_movies img:last").css('display', 'none');
 //_________________________________________________________________________________________________________________
 
                 $("#image_" + $input_field_id).append(data.attributes.image);
@@ -123,7 +122,9 @@
                     $("#image_"+new_id).fadeOut('slow');
                     $("#image_"+new_id).fadeIn('slow');
                 },
-                resultsComplete: function(){}
+                resultsComplete: function(){
+
+                                        }
             };
         var opts = $.extend(defaults, options);
         var d_type = "object";
@@ -187,6 +188,7 @@
                     var lastChar = prefill_value.substring(prefill_value.length-1);
                     if(lastChar != ","){ prefill_value = prefill_value+","; }
                     values_input.val(","+prefill_value);
+
                     $("li.as-selection-item", selections_holder).addClass("blur").removeClass("selected");
                 }
                 input.after(values_input);
@@ -202,7 +204,6 @@
                 var tab_press = false;
                 var lastKeyPressCode = null;
                 var request = null;
-
                 // Handle input field events
                 input.focus(function(){
                     if($(this).val() == opts.startText && values_input.val() == ""){
@@ -274,7 +275,9 @@
                                 timeout = setTimeout(function(){ keyChange(); }, opts.keyDelay);
                             }
                             break;
-                        case 9: case 188:  // tab or comma
+                        case 9: case 188:  // tab or comma or enter
+
+                         if (opts.tab_press == true && e.keyCode == 9 || opts.comma_press && e.keyCode == 188){
                             tab_press = true;
                             var i_input = input.val().replace(/(,)/g, "");
                             if(i_input != "" && values_input.val().search(","+i_input+",") < 0 && i_input.length >= opts.minChars){
@@ -288,6 +291,7 @@
                                 // Cancel previous request when new tag is added
                                 abortRequest();
                             }
+                         }
                         case 13: // return
                             tab_press = false;
                             var active = $("li.active:first", results_holder);
@@ -427,6 +431,7 @@
                     //if (matchCount > 0 || !showResultListWhenNoMatch)
                     if (matchCount > 0) {
                         results_holder.show();
+                        results_holder.find('ul.as-list li:first').addClass('active');
                     }
                     opts.resultsComplete.call(this);
                 }

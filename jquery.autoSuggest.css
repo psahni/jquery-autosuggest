@@ -41,6 +41,7 @@ ul.as-selections li.as-selection-item {
 	box-shadow: 0 1px 1px #e4edf2;
 	-webkit-box-shadow: 0 1px 1px #e4edf2;
 	-moz-box-shadow: 0 1px 1px #e4edf2;
+	cursor: pointer;
 }
 
 ul.as-selections li.as-selection-item:last-child {

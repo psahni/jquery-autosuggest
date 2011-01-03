@@ -63,7 +63,7 @@ li.as-result-item { font-size: 12px !important; }
 /*li.as-message{display:none;}*/
 ul.as-selections li.as-selection-item div{ float: left; }
 ul.as-selections li.as-selection-item a.as-close { color:#A6B3CF !important; }
-li span.movie_name{
+li.as-result-item span{
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   font-size: 11px;
   padding-left: 33px;
