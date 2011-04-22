@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Autosuggest</title>
+		<link rel="stylesheet" type="text/css" href="../addon.css" />
+		<link rel="stylesheet" type="text/css" href="../jquery.autoSuggest.css" />
+		<script type="text/javascript" src="../jquery.js"></script>
+		<script type="text/javascript" src="../jquery.autoSuggest.js"></script>
+	</head>
+	<body>
+		<div id='pageheader'>
+			<h1>Autosuggest Demo</h1>
+			<div id='content'>
+			<div class='field'>
+			  <label for='favorite_movies' class='label'>Tell us your favorite movies:</label>
+			  <input type='text' id='movies'>
+      </div><!--End field -->
+     <div class='field'>
+        <label for='favorite_sports' class='label'>Tell us your favorite sports:</label>
+			  <input type='text' id='sports'>
+     </div>
+		 </div><!--End content-->
+		</div>
+	</body>
+</html>
+<script type='text/javascript'>
+
+	$(document).ready(function(){
+			var data = {items: [
+				{value: "21", name: "Hanumaan",  image: "<img src = '../images/hanumaan.jpeg' height='42' width='42'/>"},
+				{value: "43", name: "IceCube",   image: "<img src = '../images/icecube.jpg'   height='42' width='42'/>"},
+				{value: "46", name: "Broke Back Moutain", image: "<img src = '../images/brokeback.jpeg' height='42' width='42'/>" },
+				{value: "54", name: "SpiderMan", image: "<img src = '../images/spiderman.jpg' height='42' width='42'/>"},
+				{value: "55", name: "Twilight", image: "<img src='../images/twilight.jpeg' height='42' width='42'/>"},
+				{value: "79", name: "Logo", image: "<img src='../images/linux-logo.png' height='42' width='42'/>"}
+		    ]};
+		var sports = {items: [
+		  {value: "80", name: "Cricket",   image: "<img src = '../images/cricket.jpeg'   height='42' width='42'/>"},
+		  {value: "81", name: "Football",  image: "<img src = '../images/football.jpeg'  height='42' width='42'/>"},
+		  {value: "82", name: "Baseball",  image: "<img src = '../images/baseball.jpeg'  height='42' width='42'/>"},
+		  {value: "83", name: "Athletics", image: "<img src = '../images/athletics.jpeg' height='42' width='42'/>"},
+		  {value: "Tennis", name: "Tennis",image: "<img src = '../images/tennis.jpg'     height='42' width='42'/>"}
+		]};
+		$("#movies").autoSuggest(data.items,   {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Movies", tab_press: false, comma_press:false, enter_press: true, formatList: function(data, elem){ var image = data.image;var name = data.name;var new_elem = elem.html(image + "<span class='movie_name'>" + name + "</span>");return new_elem;}});
+    $("#sports").autoSuggest(sports.items, {selectedItemProp: "name", searchObjProps: "name", startText: "Your Favorite Sports", tab_press: false, comma_press:false, enter_press: true,   formatList: function(data, elem){ var image = data.image;var name = data.name;var new_elem = elem.html(image + "<span class='sport_name'>" + name + "</span>");return new_elem;}});
+	});
+</script>
+
